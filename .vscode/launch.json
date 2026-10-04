@@ -1,0 +1,33 @@
+{
+  // 在 VS Code 打开本文件夹后：按 F5（或点左侧"运行和调试"面板的 ▶）即可一键运行。
+  // 使用系统 PATH 里的 node；若使用便携版 node，在本机加一行
+  // "runtimeExecutable": "<你的 node 路径>" 即可。
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "▶ 运行 AI 测试（F5）",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/tsx/dist/cli.mjs",
+      "args": ["${workspaceFolder}/src/index.ts"],
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "PW_TEST_SCREENSHOT_NO_FONTS_READY": "1"
+      },
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "▶ DRY RUN 只校验 YAML（F5）",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/tsx/dist/cli.mjs",
+      "args": ["${workspaceFolder}/src/index.ts"],
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "DRY_RUN": "true",
+        "PW_TEST_SCREENSHOT_NO_FONTS_READY": "1"
+      },
+      "console": "integratedTerminal"
+    }
+  ]
+}

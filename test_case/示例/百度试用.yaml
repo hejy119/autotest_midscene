@@ -1,0 +1,28 @@
+# ============ 百度首页 · 无登录试用 ============
+# 用途：第一次跑通框架（不需要登录、不需要测试账号）。
+# 写法：url 直接导航到百度；ai 是 AI 自己规划动作；aiAssert 是预期结果。
+# 跑通标准：FULLSCREEN=true 时能看到浏览器弹出，AI 自动输入搜索词、点搜索，
+#           最后 midscene-run/report/index.html 打开有通过结果。
+
+# ① 最基础：打开页面 + 断言页面元素
+- name: 打开百度首页，验证搜索框可见
+  steps:
+    - url: https://www.baidu.com
+    - aiWaitFor: 页面加载完成，出现居中的搜索输入框
+    - aiAssert: 页面显示百度 logo 和搜索输入框
+
+# ② 真实 AI 操作：在搜索框输入并点击搜索
+- name: 搜索 Midscene 并验证出现结果
+  steps:
+    - url: https://www.baidu.com
+    - aiInput: 页面中间的搜索输入框
+      value: Midscene
+    - aiTap: 搜索按钮（放大镜图标或“百度一下”）
+    - aiWaitFor: 页面出现搜索结果列表
+    - aiAssert: 搜索结果中出现了与 Midscene 相关的内容
+
+# ③ 查询：让 AI 读取页面信息（结果会打进日志）
+- name: 查询当前页面的标题
+  steps:
+    - url: https://www.baidu.com
+    - aiQuery: 这个页面的标题是什么？只返回标题文字

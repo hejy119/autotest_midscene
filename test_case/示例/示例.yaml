@@ -1,0 +1,47 @@
+# ============ 示例用例（saucedemo 演示） ============
+# 文件顶部就是用例列表（- name: 开头）。
+# 步骤的写法与 Midscene 官方文档一致（camelCase 方法名直接做键）：
+#   - ai: 通用指令（AI 自己规划动作，日常最常用）
+#   - aiTap / aiInput / aiScroll / aiHover ... 精确动作
+#   - aiAssert / aiWaitFor / aiQuery / aiAsk ... 断言与查询
+#   - sleep / url / log 辅助
+# 登录已经由框架统一处理（.env 的 LOGIN_*），用例里不用写登录。
+
+# ---- ① 基础格式：对应 Excel 的操作步骤 / 预期结果 ----
+- name: 进入商品列表
+  ai: 进入商品列表页面，等待页面加载完成
+  aiAssert: 页面显示 Products 标题
+
+# ---- ② 通用指令 ----
+- name: 把第一件商品加入购物车
+  steps:
+    - ai: 点击第一个商品的 Add to cart 按钮
+    - aiAssert: 右上角购物车徽标显示数字 1
+    - log: 加购完成
+
+# ---- ③ 精确动作（多键步骤：定位 + 参数） ----
+- name: 登录页面输入账号密码（精确控制）
+  steps:
+    - url: https://www.saucedemo.com
+    - aiInput: 用户名输入框
+      value: standard_user
+    - aiInput: 密码输入框
+      value: secret_sauce
+    - aiTap: 登录按钮
+    - aiWaitFor: 页面出现 Products 标题
+    - aiScroll: 商品列表
+      direction: down
+      distance: 300
+    - aiHover: 悬停在第一个商品上
+
+# ---- ④ 查询 / 断言 / 报告备注 ----
+- name: 查询购物车数据
+  steps:
+    - url: https://www.saucedemo.com
+    - aiTap: 把第一个商品加入购物车
+    - aiQuery: 购物车里有几个商品？返回数量
+    - aiAsk: 这个页面是什么系统？
+    - aiAssert: 页面标题是 Swag Labs
+      errorMessage: 标题不符
+    - recordToReport: 本用例验证了加购流程
+    - sleep: 1000

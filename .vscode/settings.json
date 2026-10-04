@@ -1,0 +1,9 @@
+{
+  // 安装 Code Runner 扩展后，右键 src/index.ts → Run Code（或右上角 ▷）即可直接运行。
+  // 未安装扩展时不影响，F5 一样能跑（见 launch.json）。
+  "code-runner.executorMap": {
+    "typescript": "node $workspaceRoot/node_modules/tsx/dist/cli.mjs $workspaceRoot/src/index.ts"
+  },
+  "code-runner.runInTerminal": true,
+  "code-runner.ignoreSelection": true
+}

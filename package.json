@@ -1,0 +1,24 @@
+{
+  "name": "autotest_midscene",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node node_modules/tsx/dist/cli.mjs src/index.ts",
+    "ai:test": "node node_modules/tsx/dist/cli.mjs src/index.ts",
+    "ai:dry": "set DRY_RUN=true&& node node_modules/tsx/dist/cli.mjs src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "YAML 驱动的 AI 自动化测试框架（Playwright + Midscene）",
+  "dependencies": {
+    "@midscene/web": "^1.10.9",
+    "dotenv": "^17.4.2",
+    "playwright": "^1.62.1",
+    "tsx": "^4.23.10",
+    "yaml": "^2.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.2",
+    "typescript": "^7.0.2"
+  }
+}
