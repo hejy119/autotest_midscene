@@ -1,6 +1,8 @@
 # ============ 示例用例（saucedemo 演示） ============
 # 文件顶部就是用例列表（- name: 开头）。
-# 步骤的写法与 Midscene 官方文档一致（camelCase 方法名直接做键）：
+# 步骤的动作名沿用 Midscene Agent 的方法名（camelCase 直接做键）。
+# 说明：文件结构和 steps: 键由本项目定义，走的是 Midscene 的 JS API。
+# （官方 YAML 脚本链路：旧版用 tasks: / flow:，已进入维护状态；新版 Midscene Test 用 cases: / steps:。）
 #   - ai: 通用指令（AI 自己规划动作，日常最常用）
 #   - aiTap / aiInput / aiScroll / aiHover ... 精确动作
 #   - aiAssert / aiWaitFor / aiQuery / aiAsk ... 断言与查询

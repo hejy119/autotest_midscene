@@ -146,9 +146,12 @@ autotest_midscene/
 
 > **从 Excel 测试用例转 YAML**：测试步骤每行 → `ai`，预期结果每行 → `aiAssert`，去掉行首编号（如 `1. 查看左侧边栏` → `ai: 查看左侧边栏`）。登录由框架统一处理，不用写；前置条件只作为行首注释标注。参考 `test_case/示例/示例.yaml` 里的「① 基础格式」。
 
-### 写法 ② steps 格式（与 Midscene 官方文档一致）
+### 写法 ② steps 格式（动作名沿用 Midscene Agent 的方法名）
 
-步骤就是 **Midscene Agent 的方法名**（camelCase）直接做键，跟 [官方文档](https://midscenejs.com/) 上的写法一样，额外参数作为兄弟键：
+`steps:` 这个键和文件结构（顶层直接是用例数组）由本项目定义；但**步骤的动作名直接沿用 Midscene Agent 的方法名**（camelCase），额外参数作为兄弟键——熟悉 Midscene 的话可以直接上手：
+
+> 本项目走的是 **Midscene 的 JS API**，上面的 YAML 是自研的一层封装。
+> （Midscene 官方另有 YAML 脚本链路：旧版用 `tasks:` / `flow:`，**已进入维护状态**；新版 Midscene Test 用 `cases:` / `steps:`，目前 Beta。）
 
 ```yaml
 - name: 完成一次购物流程
@@ -270,6 +273,17 @@ YAML 里步骤键写错（可能用了 `ai assert` 这种带空格写法）。�
 
 **Q7. 想只跑某一条用例？**
 临时把 `YAML_FILES` 指到只含该用例的文件（或新建一个只含它的 yaml），跑完改回。
+
+**Q8. 为什么不用 Midscene 官方的 YAML 脚本 / Midscene Test？**
+
+本项目建在 **Midscene 的 JS API** 上，上面的 YAML 是自研的一层封装。官方另有 YAML 脚本链路，但都不是本项目要的东西：
+
+- **旧链路**（`@midscene/cli` + `tasks:` / `flow:`）——提供的是"跑一个 YAML 脚本"的能力，**已进入维护状态**（官方不再新增语法与能力）
+- **新方案 Midscene Test**（`@midscene/test` + `cases:` / `steps:`）——目前是 **Beta**，官方明说"测试协议与 API 正在持续演进"，**接口不承诺兼容**
+
+本项目需要的是**测试框架**能力——批量执行、统一登录、失败重试、汇总报告、成本控制，这些官方链路不提供或还不稳定。**建在 JS API 上更稳**：那是官方两代方案共用的底层。
+
+> 如果未来要跟进，可以参考官方新方案的设计（生命周期钩子、Node 抽象、执行项目隔离、Node 说明书）来改进本框架。
 
 ---
 
